@@ -4,6 +4,7 @@
 	<meta charset="utf-8"/>
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css" />
 	<script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+    <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script>
 	<style type="text/css">
 		html, body, #map {
 			width: 100%;
@@ -20,10 +21,25 @@
 
 <script type="text/javascript">
 
-	var map = L.map('map').setView([-37.8130, 144.9484], 14);
+    //var map = L.map('map').setView([-37.8130, 144.9484], 14);
+    var map = L.map('map').setView([48.9031623, 2.3632775], 14);
 	L.tileLayer('http://localhost:8080/{z}/{x}/{y}.png', {
 		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
 		maxZoom: 18
 	}).addTo(map);
+    var runLayer = omnivore.kml('http://localhost:9999/Paris.kml')
+    .on('ready', function() {
+        map.fitBounds(runLayer.getBounds());
+
+        // After the 'ready' event fires, the GeoJSON contents are accessible
+        // and you can iterate through layers to bind custom popups.
+        runLayer.eachLayer(function(layer) {
+            // See the `.bindPopup` documentation for full details. This
+            // dataset has a property called `name`: your dataset might not,
+            // so inspect it and customize to taste.
+            layer.bindPopup(layer.feature.properties.name);
+        });
+    })
+    .addTo(map);
 </script>
 </html>
