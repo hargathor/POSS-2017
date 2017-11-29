@@ -1,4 +1,4 @@
-# Melbourne map
+# Ile de France map
 
 Provides a configuration to launch your own retina ready map renderer.
 
@@ -31,7 +31,7 @@ Then you can open example in your favourite web browser:
 ```
 http://localhost:8888
 ```
-The initial rendering may take 10-30 seconds, after which you will see a fabulous map of Melbourne city.
+The initial rendering may take 1 or 2 minutes, after which you will see a fabulous map of the Ile de France.
 
 
 ## Renders other areas
@@ -40,11 +40,11 @@ You will need to update postgis image to render other city/area:
 
 * Update postgis/Dockerfile by adding different pbf file to container
 ```
-wget https://s3.amazonaws.com/metro-extracts.mapzen.com/melbourne_australia.osm.pbf
+wget http://download.geofabrik.de/europe/france/ile-de-france-latest.osm.pbf
 ```
 * Update postgis/initdb-postgis.sh to use a new file
 ```
-osm2pgsql --style /openstreetmap-carto/openstreetmap-carto.style -d gis -U postgres -k --slim /melbourne_australia.osm.pbf
+osm2pgsql --style /openstreetmap-carto/openstreetmap-carto.style -d gis -U postgres -k --slim /ile-de-france-latest.osm.pbf
 ```
 
 ## Using custom style
