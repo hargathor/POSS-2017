@@ -24,3 +24,15 @@ services:
       - ./web:/usr/share/nginx/html
     ports:
       - "8888:80"
+  kml:
+    image: nginx:1.11-alpine
+    volumes:
+      - ./kml-server/conf:/etc/nginx/conf.d
+      - ./kml-server/data:/usr/share/nginx/html:ro
+    ports:
+      - "9999:80"
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 10.10.1.0/25
